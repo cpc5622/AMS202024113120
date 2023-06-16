@@ -1,0 +1,91 @@
+﻿@model IEnumerable<AMS202024113120.Models.Asset>
+@{
+    ViewData["Title"] = "查询";
+}
+
+<div class="container mt-5 mb-5">
+    <h3>资产查询</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="QueryAsset" method="get">
+                <div>
+                    <label for="Id">资产编号:</label>
+                    <input type="text" id="Id" name="Id" />
+                </div>
+                <div>
+                    <label for="assetName">资产名称:</label>
+                    <input type="text" id="assetName" name="assetName" />
+                </div>
+                <div>
+                    <label for="CategoryName">资产类别:</label>
+                    <input type="text" id="CategoryName" name="CategoryName" />
+                </div>
+                <div>
+                    <label for="purchaseYear">购买日期:</label>
+                    <input type="text" id="purchaseYear" name="purchaseYear" />
+                </div>
+                <div>
+                    <label for="location">存放位置:</label>
+                    <input type="text" id="location" name="location" />
+                </div>
+                <div>
+                    <label for="CustodianName">保管人名:</label>
+                    <input type="text" id="CustodianName" name="CustodianName" />
+                </div>
+                <div>
+                    <label for="DepartmentName">部门名称:</label>
+                    <input type="text" id="DepartmentName" name="DepartmentName" />
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+    </div>
+    <br />
+    @{
+        if (Model != null)
+        {
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <td>资产编号</td>
+                        <td>资产名称</td>
+                        <td>资产规格</td>
+                        <td>价格</td>
+                        <td>购入日期</td>
+                        <td>存放位置</td>
+                        <td>资产类别</td>
+                        <td>资产图片</td>
+                        <td>资产所属部门编号</td>
+                        <td>资产保管人</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        string imgName = $"{item.ImgName}";
+                        <tr>
+                            <td>
+                                @item.AssetId
+                            </td>
+                            <td>
+                                @item.AssetName
+                            </td>
+                            <td>@item.AssetSpec</td>
+                            <td>@item.Price</td>
+                            <td>@item.PurchaseDate</td>
+                            <td>@item.Location</td>
+                            <td>@item.Category.CategoryName</td>
+                            <td>
+                                <img src="~/images/@imgName" style="width:50px;height:35px;" />
+                            </td>
+                            <td>@item.Custodian.Department.DepartmentName</td>
+                            <td>@item.Custodian.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>

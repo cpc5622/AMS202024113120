@@ -1,0 +1,89 @@
+﻿@model IEnumerable<AMS202024113120.Models.Asset>
+@{
+    ViewData["Title"] = "查询";
+}
+
+<div class="container mt-5 mb-5">
+    <h3>资产管理</h3>
+    @{
+        if (Model != null)
+        {
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <td>资产编号</td>
+                        <td>资产名称</td>
+                        <td>资产规格</td>
+                        <td>价格</td>
+                        <td>购入日期</td>
+                        <td>存放位置</td>
+                        <td>资产类别</td>
+                        <td>资产图片名</td>
+                        <td>资产所属部门编号</td>
+                        <td>资产保管人</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        string imgName = $"{item.ImgName}";
+                        <tr>
+                            <td>
+                                @item.AssetId
+                            </td>
+                            <td>
+                                @item.AssetName
+                            </td>
+                            <td>@item.AssetSpec</td>
+                            <td>@item.Price</td>
+                            <td>@item.PurchaseDate</td>
+                            <td>@item.Location</td>
+                            <td>@item.Category.CategoryName</td>
+                            <td>
+                                <img src="~/images/@imgName" style="width:50px;height:35px;" />
+                            </td>
+                            <td>@item.Custodian.DepartmentId</td>
+                            <td>@item.CustodianId</td>
+                            <td>
+                                <a href="/Admin/EditAsset?id=@item.AssetId" class="btn btn-sm btn-outline-primary">修改</a>
+                                <a href="/Admin/DeleteAsset?id=@item.AssetId" class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('确定要删  @item.AssetId - @item.AssetName 吗?');">删除</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>
+<script>
+    $("a.delete-link").click(function (e) {
+        e.preventDefault();
+
+        // 弹出确认对话框
+        var confirmResult = confirm("您确定要删除该类别吗？");
+
+        if (confirmResult == true) {
+            // 获取要删除的类别ID
+            var categoryId = $(this).data("category-id");
+
+            // 发送DELETE请求
+            $.ajax({
+                url: "/Admin/DeleteCategory/" + categoryId,
+                type: "DELETE",
+                success: function (result) {
+                    // 显示删除成功提示
+                    alert("删除成功");
+
+                    // 刷新页面
+                    window.location.reload();
+                },
+                error: function (xhr) {
+                    // 显示删除失败提示
+                    alert("删除失败");
+                }
+            });
+        }
+    });
+</script>

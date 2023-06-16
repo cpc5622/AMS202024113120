@@ -1,0 +1,80 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@using AMS202024113120.Models
+@model AMS202024113120.Models.Asset
+@inject AssetContext _context
+@{
+    ViewData["Title"] = "添加资产";
+    var category = _context.AssetCategories.ToList();
+    var employee = _context.Employees.ToList();
+}
+<div class="container mt-5 mb-5">
+    <h3>编辑资产</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="EditAsset" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="AssetId" />
+                <div class="form-group">
+                    <!--资产名称-->
+                    <label asp-for="AssetName" class="control-label">资产名称</label>
+                    <input asp-for="AssetName" class="form-control" />
+                    <span asp-validation-for="AssetName" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <!--资产规格-->
+                    <label asp-for="AssetSpec" class="control-label">资产规格</label>
+                    <input asp-for="AssetSpec" class="form-control" />
+                    <span asp-validation-for="AssetSpec" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <!--购买日期-->
+                    <label asp-for="PurchaseDate" class="control-label">购买日期</label>
+                    <input asp-for="PurchaseDate" class="form-control" />
+                    <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <!--资产价格-->
+                    <label asp-for="Price" class="control-label">资产价格</label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <!--存放位置-->
+                    <label asp-for="Location" class="control-label">存放位置</label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <!--类别名称-->
+                    类别名称
+                    <select asp-for="CategoryId" class="form-select">
+                        @foreach (var item in category)
+                        {
+                            <option value="@item.CategoryId">@item.CategoryName</option>
+                        }
+                    </select>
+                </div><br />
+                <div class="form-group">
+                    <!--保管人姓名-->
+                    保管人名称
+                    <select asp-for="CustodianId" class="form-select">
+                        @foreach (var item in employee)
+                        {
+                            <option value="@item.EmployeeId">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <!--相片档-->
+                <br />
+                <div class="form-group">
+                    <input type="file" name="imgFile" />
+                    <input type="submit" value="修改" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

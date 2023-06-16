@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <!--页首及导览区块-->
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3" style="background-color:cornflowerblue">
+        <div class="container">
+            <a class="navbar-brand" href="/Home/Index">资产管理</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="/Home/Index">首页</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            查询
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/Member/QueryAssetCategory">资产类别</a></li>
+                            <li><a class="dropdown-item" href="/Member/QueryAsset">资产</a></li>
+                            <li><a class="dropdown-item" href="/Member/QueryDepartment">部门</a></li>
+                            <li><a class="dropdown-item" href="/Member/QueryEmployee">员工</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            添加
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/Admin/AddCategory">资产类别</a></li>
+                            <li><a class="dropdown-item" href="/Admin/AddAsset">资产</a></li>
+                            <li><a class="dropdown-item" href="/Admin/AddDepartment">部门</a></li>
+                            <li><a class="dropdown-item" href="/Admin/AddEmployee">员工</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            管理
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/Admin/ManageCategory">资产类别</a></li>
+                            <li><a class="dropdown-item" href="/Admin/ManageAsset">资产</a></li>
+                            <li><a class="dropdown-item" href="/Admin/ManageDepartment">部门</a></li>
+                            <li><a class="dropdown-item" href="/Admin/ManageEmployee">员工</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div style="float: left">
+                    <h5 style="color: aliceblue">欢迎，@User.Identity.Name  &emsp;</h5>
+
+                </div>
+                <div>
+                    @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        <h5><a href="javascript:void(0);" style="color:aliceblue" onclick="document.getElementById('logoutForm').submit();">注销</a></h5>
+                    }
+                </div>
+            }
+            else
+            {
+                <ul class="navbar-nav flex-grow-2">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="Home/Login">登录</a>
+                    </li>
+                </ul>
+            }
+        </div>
+    </nav>
+    <!--页首及导览区块结束-->
+    <!--内容区块-->
+    <div>
+        @RenderBody()
+    </div>
+    <!--内容区块结束-->
+    <!--页脚区块-->
+    <footer class="border-top border-bottom mb-3" style="background-color:cornflowerblue;">
+        <div class="container mt-3 mb-3">
+            &copy; 2023 - [资产管理] - 网站管理:陈品淙 - 联系:cpc5622.cn@gmail.com
+        </div>
+    </footer>
+    <!--页脚区块结束-->
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

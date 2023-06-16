@@ -1,0 +1,67 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@using AMS202024113120.Models
+@model AMS202024113120.Models.Employee
+@inject AssetContext _context
+@{
+    ViewData["Title"] = "添加员工";
+    var department = _context.Departments.ToList();
+}
+<div class="container mt-5 mb-5">
+    <h3>添加员工</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" action="@Url.Action("AddEmployee")" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger" />
+                <div class="form-group">
+                    <!--描述-->
+                    <label asp-for="EmployeeId" class="control-label">员工编号</label>
+                    <input asp-for="EmployeeId" class="form-control" />
+                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <!--描述-->
+                    <label asp-for="Password" class="control-label">账户密码</label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <!--描述-->
+                    <label asp-for="Name" class="control-label">员工名称</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <!--描述-->
+                    <label asp-for="Phone" class="control-label">手机号码</label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <!--描述-->
+                    员工类别
+                    <select asp-for="Role" class="form-select">                    
+                        <option value="Admin">管理员</option>
+                        <option value="Member">普通员工</option>
+                    </select>
+                </div><br />
+                <div class="form-group">
+                    <!--类别-->
+                    部门编号
+                    <select asp-for="DepartmentId" class="form-select">
+                        @foreach (var item in department)
+                        {
+                            <option value="@item.DepartmentId">@item.DepartmentName</option>
+                        }
+                    </select>
+                </div><br />
+                <div class="form-group">
+                    <input type="submit" value="提交" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

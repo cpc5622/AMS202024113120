@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+    <h3>用户登录</h3>
+    <h4>[admin/1234]</h4>
+    <br />
+    <form method="post" action="@Url.Action("Login")">
+        <p>账号：<input type="text" name="uid" required /></p>
+        <p>密码：<input type="password" name="pwd" required /></p>
+        <p><input type="submit" class="btn btn-primary" value="登录" /></p>
+    </form>
+    <hr />
+    <!--显示登录情况-->
+    <h4>@ViewBag.Message</h4>
+
+</body>
+</html>

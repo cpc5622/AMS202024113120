@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AMS202024113120.Models.Department>
+@{
+    ViewData["Title"] = "查询";
+}
+
+<div class="container mt-5 mb-5">
+    <h3>部门查询</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="QueryAssetCategory" method="get">
+                <div>
+                    <label for="DepartmentName">部门名称:</label>
+                    <input type="text" id="DepartmentName" name="DepartmentName" />
+                </div>
+                <div>
+                    <label for="Manager">主管名称:</label>
+                    <input type="text" id="Manager" name="Manager" />
+                </div><br />
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+    </div>
+    <br />
+    @{
+        if (Model != null)
+        {
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <td>部门编号</td>
+                        <td>部门名称</td>
+                        <td>部门主管名称</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.DepartmentId
+                            </td>
+                            <td>
+                                @item.DepartmentName
+                            </td>
+                            <td>@item.Manager.Name</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>

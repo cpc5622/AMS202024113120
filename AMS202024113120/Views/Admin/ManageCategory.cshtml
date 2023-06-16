@@ -1,0 +1,42 @@
+﻿@model IEnumerable<AMS202024113120.Models.AssetCategory>
+@{
+    ViewData["Title"] = "查询";
+}
+
+<div class="container mt-5 mb-5">
+    <h3>资产类别管理</h3>
+    @{
+        if (Model != null)
+        {
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <td>类别编号</td>
+                        <td>类别名称</td>
+                        <td>类别说明</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.CategoryId
+                            </td>
+                            <td>
+                                @item.CategoryName
+                            </td>
+                            <td>@item.Description</td>
+                            <td>
+                                <a href="/Admin/EditCategory?id=@item.CategoryId" class="btn btn-sm btn-outline-primary">修改</a>
+                                <a href="/Admin/DeleteCategory?id=@item.CategoryId" class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('确定要删  @item.CategoryId - @item.CategoryName 吗?');">删除</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AMS202024113120.Models.AssetCategory>
+@{
+    ViewData["Title"] = "查询";
+}
+
+<div class="container mt-5 mb-5">
+    <h3>资产类别查询</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="QueryAssetCategory" method="get">
+                <div>
+                    <label for="Name">资产类别名称:</label>
+                    <input type="text" id="Name" name="Name" />
+                </div><br />
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+    </div>
+    <br />
+    @{
+        if (Model != null)
+        {
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <td>类别编号</td>
+                        <td>类别名称</td>
+                        <td>类别说明</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.CategoryId
+                            </td>
+                            <td>
+                                @item.CategoryName
+                            </td>
+                            <td>@item.Description</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>
